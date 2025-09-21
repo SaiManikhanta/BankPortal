@@ -1,0 +1,155 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "hello",
+        "hi",
+        "hey",
+        "good morning",
+        "good evening",
+        "hey there",
+        "hi there"
+      ],
+      "responses": [
+        "Hello! How can I help you today?",
+        "Hi there — how can I assist you today?"
+      ]
+    },
+    {
+      "tag": "check_balance",
+      "patterns": [
+        "i want to check my account balance",
+        "check my balance",
+        "what is my balance",
+        "balance",
+        "show my balance"
+      ],
+      "responses": [
+        "Sure — I can check your balance. Please provide your account number."
+      ],
+      "required_slots": [
+        "account_number"
+      ]
+    },
+    {
+      "tag": "provide_account_number",
+      "patterns": [
+        "my account number is {account_number}",
+        "{account_number}",
+        "account number {account_number}",
+        "here is my account number {account_number}"
+      ],
+      "responses": [
+        "Thanks — looking up that account now."
+      ],
+      "slots": [
+        "account_number"
+      ]
+    },
+    {
+      "tag": "recent_transactions",
+      "patterns": [
+        "recent transactions",
+        "show my transactions",
+        "transactions",
+        "recent activity",
+        "last transactions"
+      ],
+      "responses": [
+        "Here are your recent transactions:"
+      ]
+    },
+    {
+      "tag": "card_services",
+      "patterns": [
+        "i need a card",
+        "apply for a card",
+        "new card",
+        "card",
+        "credit or debit card",
+        "card request",
+        "i want a credit card",
+        "i want a debit card"
+      ],
+      "responses": [
+        "Do you want a Credit Card or a Debit Card?"
+      ],
+      "required_slots": [
+        "card_type"
+      ]
+    },
+    {
+      "tag": "weather",
+      "patterns": [
+        "how's the weather today",
+        "what's the weather",
+        "weather",
+        "is it raining"
+      ],
+      "responses": [
+        "I can’t fetch live weather here — try a weather app or website."
+      ]
+    },
+    {
+      "tag": "chitchat",
+      "patterns": [
+        "how are you",
+        "what's up",
+        "how's it going"
+      ],
+      "responses": [
+        "I’m doing well — I’m a banking assistant. Want me to check your balance?"
+      ]
+    },
+    {
+      "tag": "loan",
+      "patterns": [
+        "I want to apply for a loan",
+        "loan options",
+        "how can I get a loan",
+        "loan details",
+        "tell me about loans",
+        "loan interest rates"
+      ],
+      "responses": [
+        "I can help you with loans. You can apply for a personal loan or check your existing loan details."
+      ],
+      "required_slots": [
+        "loan_type"
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "thanks",
+        "thank you",
+        "thank u",
+        "thx"
+      ],
+      "responses": [
+        "You're welcome! 😊",
+        "No problem! Happy to help.",
+        "Glad I could assist!"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "bye",
+        "goodbye"
+      ],
+      "responses": [
+        "Goodbye! Have a nice day.",
+        "Glad to help! See you soon."
+      ]
+    },
+    {
+      "tag": "fallback",
+      "patterns": [],
+      "responses": [
+        "I’m sorry — I didn’t understand that. Can you rephrase?"
+      ]
+    }
+  ]
+}

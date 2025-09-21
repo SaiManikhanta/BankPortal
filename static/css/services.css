@@ -1,0 +1,84 @@
+/* Services Page Styles */
+body {
+    background-color: #f4f7f8;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background-color: #1c3d72;
+    color: white;
+    padding: 15px 50px;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    justify-content: flex-end;
+    gap: 30px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #1cc88a;
+}
+
+.btn-login {
+    padding: 8px 20px;
+    background-color: #1cc88a;
+    border-radius: 25px;
+    font-weight: bold;
+}
+
+.btn-login:hover {
+    background-color: #17a673;
+}
+
+.content {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.content h1 {
+    color: #1c3d72;
+    margin-bottom: 20px;
+}
+
+.content h2 {
+    color: #004080;
+    margin-top: 20px;
+}
+
+.content p, .content ul {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.content ul li {
+    margin-left: 20px;
+}

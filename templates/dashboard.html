@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyBank Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  body { margin: 0; font-family: 'Roboto', sans-serif; background: #f2f4f7; color: #333; }
+  header { background: #004080; color: white; padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+  header .logo { display: flex; align-items: center; }
+  header .logo img { height: 50px; margin-right: 15px; }
+  header .logo h1 { font-size: 26px; font-weight: 700; letter-spacing: 1px; }
+  header nav a { color: white; margin-left: 20px; padding-right: 20px; font-weight: 500; text-decoration: none; transition: color 0.3s; }
+  header nav a:hover { color: #ffd700; }
+
+  .main { display: flex; padding: 30px 40px; gap: 25px; }
+  .left-panel { flex: 2; display: flex; flex-direction: column; gap: 20px; }
+  .welcome-card { background: white; border-radius: 12px; padding: 20px 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 20px; }
+  .welcome-card h2 { margin: 0 0 10px 0; color: #004080; }
+  .welcome-card p { margin: 5px 0; font-weight: 500; }
+  .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 20px; }
+  .tile { background: white; border-radius: 12px; padding: 25px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; }
+  .tile:hover { transform: translateY(-5px); box-shadow: 0 8px 18px rgba(0,0,0,0.2); }
+  .tile i { font-size: 30px; color: #004080; margin-bottom: 10px; }
+  .tile span { font-weight: 600; font-size: 16px; }
+  .result-area { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: none; font-size: 16px; margin-top: 15px; }
+  .offers { background: white; border-radius: 12px; padding: 20px 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .offers h3 { color: #004080; margin-top: 0; margin-bottom: 15px; }
+  .offer-card { display: flex; justify-content: space-between; align-items: center; background: #f2f6fc; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; font-weight: 500; transition: background 0.3s; }
+  .offer-card button { background: #004080; color: white; border: none; border-radius: 6px; padding: 6px 12px; cursor: pointer; transition: background 0.3s; }
+  .offer-card button:hover { background: #0066cc; }
+
+  /* Chatbot */
+  .chat-container { width: 400px; height: 600px; border: 2px solid #0044cc; border-radius: 15px; display: flex; flex-direction: column; background: #f7faff; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+  .chat-header { display: flex; align-items: center; padding: 10px; background: #0044cc; color: white; border-radius: 15px 15px 0 0; }
+  .bot-avatar { width: 60px; height: 60px; border-radius: 50%; margin-right: 15px; background: white; padding: 5px; }
+  .chat-box { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 8px; }
+  .bot-message, .user-message { max-width: 75%; padding: 10px; border-radius: 12px; word-wrap: break-word; }
+  .bot-message { background: #e0e7ff; align-self: flex-start; }
+  .user-message { background: #0044cc; color: white; align-self: flex-end; }
+  .chat-input { display: flex; padding: 10px; border-top: 1px solid #ddd; }
+  .chat-input input { flex: 1; padding: 8px; border-radius: 10px; border: 1px solid #ccc; }
+  .chat-input button { margin-left: 5px; padding: 8px 15px; border: none; background: #0044cc; color: white; border-radius: 10px; cursor: pointer; }
+  .quick-options { display: flex; justify-content: space-around; padding: 8px; border-top: 1px solid #ddd; }
+  .quick-options button { border: none; padding: 6px 10px; border-radius: 10px; background: #f0f0f0; cursor: pointer; }
+  footer { background: #004080; color: white; text-align: center; padding: 15px; font-size: 14px; margin-top: 30px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="SkyBank Logo">
+    <h1>SkyBank</h1>
+  </div>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/services">Services</a>
+    <a href="/contact">Contact</a>
+    <a href="/about">About</a>
+  </nav>
+</header>
+
+<div class="main">
+  <div class="left-panel">
+    <div class="welcome-card">
+      <h2>Welcome, {{ user['full_name'] }}</h2>
+      <p><b>Account No:</b> {{ user['account_no'] }}</p>
+      <p><b>Account Type:</b> Savings</p>
+    </div>
+
+    <div class="dashboard">
+      <div class="tile" onclick="showResult('balance')"><i class="fas fa-wallet"></i><span>Check Balance</span></div>
+      <div class="tile" onclick="showResult('transactions')"><i class="fas fa-exchange-alt"></i><span>Transactions</span></div>
+      <div class="tile" onclick="showResult('loans')"><i class="fas fa-hand-holding-usd"></i><span>Loans</span></div>
+      <div class="tile" onclick="showResult('debit')"><i class="fas fa-credit-card"></i><span>Debit Limit</span></div>
+      <div class="tile" onclick="showResult('credit')"><i class="fas fa-money-bill-wave"></i><span>Credit Limit</span></div>
+    </div>
+
+    <div class="result-area" id="result">
+      <p style="color:#888;">Select an option to see details here...</p>
+    </div>
+
+    <div class="offers">
+      <h3>Bank Offers</h3>
+      <div class="offer-card">
+        <div>Gold Loan<br><small>Low Interest Rate</small></div>
+        <button>Apply Now</button>
+      </div>
+      <div class="offer-card">
+        <div>Personal Loan<br><small>Quick Approval</small></div>
+        <button>Apply Now</button>
+      </div>
+      <div class="offer-card">
+        <div>Fixed Deposit<br><small>Earn up to 6% p.a.</small></div>
+        <button>Open FD</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chatbot -->
+  <div class="chat-container">
+    <div class="chat-header">
+      <img src="{{ url_for('static', filename='images/bank_bot.jpg') }}" alt="BankBot" class="bot-avatar">
+      <h2>BankBot <span style="font-size:12px; color:#d0e0ff;">Online</span></h2>
+    </div>
+    <div id="chat-box" class="chat-box">
+      <div class="bot-message"><span>🤖 Hi! I’m BankBot. How can I help you today?</span></div>
+    </div>
+    <div class="quick-options">
+      <button onclick="sendQuick('Check Balance')">💰 Balance</button>
+      <button onclick="sendQuick('Transactions')">📜 Transactions</button>
+      <button onclick="sendQuick('Help')">❓ Help</button>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="user-input" placeholder="Type your message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
+
+<footer>© 2025 SkyBank. All Rights Reserved.</footer>
+
+<script>
+const transactions = JSON.parse('{{ transactions_json|safe }}');
+
+function showResult(option) {
+    let resultDiv = document.getElementById('result');
+    resultDiv.style.display = "block";
+
+    if(option === 'balance') resultDiv.innerHTML = `<b>Current Balance:</b> ₹{{ account.balance }}`;
+    else if(option === 'transactions') {
+        if(transactions.length === 0) { resultDiv.innerHTML = "No transactions found."; return; }
+        let txnHtml = transactions.map(txn => `${txn.date} | ${txn.type} | ₹${txn.amount}`).join("<br>");
+        resultDiv.innerHTML = "<b>Last Transactions:</b><br>" + txnHtml;
+    }
+    else if(option === 'loans') resultDiv.innerHTML = `<b>Active Loan:</b> ₹{{ account.loan }}`;
+    else if(option === 'debit') resultDiv.innerHTML = `<b>Daily Debit Limit:</b> ₹{{ account.debit_limit }}`;
+    else if(option === 'credit') resultDiv.innerHTML = `<b>Credit Limit:</b> ₹{{ account.credit_limit }}`;
+}
+
+function sendMessage() {
+    const inputBox = document.getElementById('user-input');
+    const chatBox = document.getElementById('chat-box');
+    const message = inputBox.value.trim();
+    if(message === "") return;
+
+    const userMsgDiv = document.createElement('div');
+    userMsgDiv.className = "user-message";
+    userMsgDiv.innerHTML = `<span>${message}</span>`;
+    chatBox.appendChild(userMsgDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    inputBox.value = "";
+
+    fetch("/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const botMsgDiv = document.createElement('div');
+        botMsgDiv.className = "bot-message";
+        botMsgDiv.innerHTML = `<span>🤖 ${data.reply}</span>`;
+        chatBox.appendChild(botMsgDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    })
+    .catch(err => console.error(err));
+}
+
+document.getElementById('user-input').addEventListener('keypress', function(e) {
+    if(e.key === 'Enter'){ e.preventDefault(); sendMessage(); }
+});
+
+function sendQuick(option) {
+    document.getElementById('user-input').value = option;
+    sendMessage();
+}
+</script>
+</body>
+</html>

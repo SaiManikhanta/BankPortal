@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Services - SkyBank</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/services.css') }}">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">SkyBank</div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    <li><a href="{{ url_for('login') }}" class="btn-login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="content">
+        <h1>Our Services</h1>
+        <p>SkyBank provides a wide range of banking services to meet the diverse needs of our customers. From basic accounts to advanced financial products, we aim to make banking simple and secure.</p>
+
+        <h2>Personal Banking</h2>
+        <ul>
+            <li>Checking and Savings Accounts</li>
+            <li>Debit and Credit Cards</li>
+            <li>Online and Mobile Banking</li>
+        </ul>
+
+        <h2>Business Banking</h2>
+        <ul>
+            <li>Corporate Accounts and Payroll Services</li>
+            <li>Business Loans and Lines of Credit</li>
+            <li>Merchant Services and Payment Solutions</li>
+        </ul>
+
+        <h2>Loans & Credit</h2>
+        <ul>
+            <li>Home Loans and Mortgages</li>
+            <li>Personal Loans</li>
+            <li>Auto Loans</li>
+            <li>Credit Cards and Overdraft Facilities</li>
+        </ul>
+
+        <h2>Investment & Wealth Management</h2>
+        <ul>
+            <li>Mutual Funds and Fixed Deposits</li>
+            <li>Retirement Planning</li>
+            <li>Financial Advisory Services</li>
+        </ul>
+
+        <p>We combine traditional banking with digital convenience to ensure every customer can manage their finances effectively.</p>
+    </div>
+</body>
+</html>

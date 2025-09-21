@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About - SkyBank</title>
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">SkyBank</div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('services') }}">Services</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('login') }}" class="btn-login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h1>About SkyBank</h1>
+        <p>SkyBank has been a trusted financial institution since 2000, providing secure banking services to individuals and businesses...</p>
+
+        <h2>Our Vision</h2>
+        <p>To be the leading bank in customer satisfaction and digital innovation.</p>
+
+        <h2>Our Mission</h2>
+        <ul>
+            <li>Provide secure and easy banking solutions.</li>
+            <li>Support financial growth for all customers.</li>
+            <li>Innovate with technology-driven services.</li>
+        </ul>
+
+        <h2>Why Choose SkyBank?</h2>
+        <p>We combine personalized service with digital convenience, ensuring every customer can manage finances efficiently.</p>
+    </div>
+</body>
+</html>

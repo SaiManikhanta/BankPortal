@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact - SkyBank</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">SkyBank</div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                    <li><a href="{{ url_for('login') }}" class="btn-login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="content">
+        <h1>Contact SkyBank</h1>
+        <p>We are here to assist you with all your banking needs. Reach out to us through any of the following channels:</p>
+
+        <h2>Customer Service</h2>
+        <p>Phone: 1800-123-4567 (Toll-Free)</p>
+        <p>Email: support@skybank.com</p>
+        <p>Available: Monday - Friday, 9:00 AM - 6:00 PM</p>
+
+        <h2>Branch Locator</h2>
+        <p>Visit our website or mobile app to find the nearest SkyBank branch or ATM in your city. Our branches are equipped to provide personalized banking services to meet your needs.</p>
+
+        <h2>Feedback & Suggestions</h2>
+        <p>We value your feedback. Fill out our online form or send us an email to share your suggestions or report issues. Your input helps us improve our services.</p>
+
+        <h2>Corporate Office</h2>
+        <p>SkyBank Headquarters, 123 Finance Street, Metro City, Country</p>
+        <p>Phone: +123-456-7890</p>
+    </div>
+</body>
+</html>

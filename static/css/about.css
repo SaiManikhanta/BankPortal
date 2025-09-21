@@ -1,0 +1,44 @@
+/* About Page Specific Styles */
+.content {
+    max-width: 900px;
+    margin: 80px auto;
+    padding: 30px 40px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.content h1 {
+    color: #1c3d72;
+    margin-bottom: 20px;
+}
+
+.content h2 {
+    color: #4e73df;
+    margin-top: 20px;
+}
+
+.content p, .content ul {
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.content ul li {
+    margin-left: 20px;
+}
+header nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    /* align items to the right */
+    justify-content: flex-end;
+    gap: 30px; /* spacing between links */
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
