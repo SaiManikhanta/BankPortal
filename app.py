@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from assistant_core import AssistantCore
 import json
+import os
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
@@ -25,8 +26,6 @@ users = {
 
 # ---------------- INITIALIZE ASSISTANT ----------------
 assistant = AssistantCore()
-
-# Sync Flask users with AssistantCore.accounts
 for user in users.values():
     acct_no = user["account_no"]
     assistant.accounts[acct_no] = {
@@ -35,7 +34,6 @@ for user in users.values():
     }
 
 # ---------------- ROUTES ----------------
-
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -48,7 +46,7 @@ def login():
         user = users.get(username)
         if user and user["password"] == password:
             session["user"] = username
-            session["chat_state"] = {}  # start empty, do NOT pre-fill account_no
+            session["chat_state"] = {}
             return redirect(url_for("dashboard"))
         else:
             return render_template("login.html", error="Invalid username or password")
@@ -76,10 +74,7 @@ def chatbot():
     message = request.json.get("message", "")
     session_state = session.get("chat_state", {})
 
-    # Handle input with assistant
     reply, tag, session_state = assistant.handle_input(message, session_state)
-
-    # Save updated session_state
     session["chat_state"] = session_state
     return jsonify({"reply": reply})
 
@@ -88,7 +83,6 @@ def logout():
     session.clear()
     return redirect(url_for("login"))
 
-# Optional pages
 @app.route("/about")
 def about():
     return render_template("about.html")
@@ -103,4 +97,5 @@ def contact():
 
 # ---------------- RUN ----------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
