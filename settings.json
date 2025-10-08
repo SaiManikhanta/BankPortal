@@ -1,0 +1,4 @@
+{
+    "confidence_threshold": 0.6,
+    "max_response_length": 500
+}

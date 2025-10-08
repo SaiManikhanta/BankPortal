@@ -1,0 +1,374 @@
+[
+    {
+        "user": "user1",
+        "query": "hi",
+        "intent_tag": "greeting",
+        "timestamp": "2025-10-07T23:27:58.548749"
+    },
+    {
+        "user": "user1",
+        "query": "Check Balance",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-07T23:28:01.234583"
+    },
+    {
+        "user": "user1",
+        "query": "458293746",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-07T23:28:08.549685"
+    },
+    {
+        "user": "user1",
+        "query": "Locate SkyBank office nearby",
+        "intent_tag": "fallback",
+        "timestamp": "2025-10-07T23:32:28.224931"
+    },
+    {
+        "user": "user1",
+        "query": "hi",
+        "intent_tag": "greeting",
+        "timestamp": "2025-10-08T15:12:07.383220"
+    },
+    {
+        "user": "user1",
+        "query": "check my balance",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T15:12:21.072810"
+    },
+    {
+        "user": "user1",
+        "query": "my account no is 458293746",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T15:12:36.204349"
+    },
+    {
+        "user": "user1",
+        "query": "my recent transactions",
+        "intent_tag": "recent_transactions",
+        "timestamp": "2025-10-08T15:12:50.103836"
+    },
+    {
+        "user": "user1",
+        "query": "Are you open on public holidays?",
+        "intent_tag": "holiday_hours",
+        "timestamp": "2025-10-08T15:33:11.138740"
+    },
+    {
+        "user": "user1",
+        "query": "Check Balance",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T16:00:29.812332"
+    },
+    {
+        "user": "user1",
+        "query": "458293746",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T16:00:37.153360"
+    },
+    {
+        "user": "user1",
+        "query": "What are the branch timings?",
+        "intent_tag": "branch_timings",
+        "timestamp": "2025-10-08T16:02:30.218669"
+    },
+    {
+        "user": "user1",
+        "query": "card",
+        "intent_tag": "card_services",
+        "timestamp": "2025-10-08T16:13:53.610687"
+    },
+    {
+        "user": "user1",
+        "query": "credit card",
+        "intent_tag": "card_services",
+        "timestamp": "2025-10-08T16:13:58.718762"
+    },
+    {
+        "user": "user1",
+        "query": "hi",
+        "intent_tag": "greeting",
+        "timestamp": "2025-10-08T16:14:04.475698"
+    },
+    {
+        "user": "user1",
+        "query": "hi",
+        "intent_tag": "greeting",
+        "timestamp": "2025-10-08T16:20:19.819444"
+    },
+    {
+        "user": "user1",
+        "query": "balance",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T16:20:24.975283"
+    },
+    {
+        "user": "user1",
+        "query": "458293746",
+        "intent_tag": "fallback",
+        "timestamp": "2025-10-08T16:20:32.942744"
+    },
+    {
+        "user": "user1",
+        "query": "Transactions",
+        "intent_tag": "recent_transactions",
+        "timestamp": "2025-10-08T16:20:56.691376"
+    },
+    {
+        "user": "user1",
+        "query": "hi",
+        "intent_tag": "greeting",
+        "timestamp": "2025-10-08T16:23:35.559224"
+    },
+    {
+        "user": "user1",
+        "query": "check balance",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T16:23:40.542149"
+    },
+    {
+        "user": "user1",
+        "query": "458293746",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T16:23:47.913062"
+    },
+    {
+        "user": "user1",
+        "query": "recent transactions",
+        "intent_tag": "recent_transactions",
+        "timestamp": "2025-10-08T16:23:56.578521"
+    },
+    {
+        "user": "user1",
+        "query": "Transactions",
+        "intent_tag": "recent_transactions",
+        "timestamp": "2025-10-08T16:24:04.027200"
+    },
+    {
+        "user": "user1",
+        "query": "card",
+        "intent_tag": "card_services",
+        "timestamp": "2025-10-08T16:24:11.282864"
+    },
+    {
+        "user": "user1",
+        "query": "credit card",
+        "intent_tag": "card_services",
+        "timestamp": "2025-10-08T16:24:20.167893"
+    },
+    {
+        "user": "user1",
+        "query": "loan",
+        "intent_tag": "loan",
+        "timestamp": "2025-10-08T16:24:33.672721"
+    },
+    {
+        "user": "user1",
+        "query": "personal loan",
+        "intent_tag": "fallback",
+        "timestamp": "2025-10-08T16:24:42.154797"
+    },
+    {
+        "user": "user1",
+        "query": "personal loan",
+        "intent_tag": "fallback",
+        "timestamp": "2025-10-08T16:25:21.725969"
+    },
+    {
+        "user": "user1",
+        "query": "transactions",
+        "intent_tag": "recent_transactions",
+        "timestamp": "2025-10-08T16:25:27.770070"
+    },
+    {
+        "user": "user1",
+        "query": "hi",
+        "intent_tag": "greeting",
+        "timestamp": "2025-10-08T16:32:21.760696"
+    },
+    {
+        "user": "user1",
+        "query": "check my balance",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T16:32:28.985109"
+    },
+    {
+        "user": "user1",
+        "query": "458293746",
+        "intent_tag": "fallback",
+        "timestamp": "2025-10-08T16:33:33.455913"
+    },
+    {
+        "user": "user1",
+        "query": "the account no is 458293746",
+        "intent_tag": "greeting",
+        "timestamp": "2025-10-08T16:34:18.580644"
+    },
+    {
+        "user": "user1",
+        "query": "hi",
+        "intent_tag": "error",
+        "timestamp": "2025-10-08T16:35:35.305935"
+    },
+    {
+        "user": "user1",
+        "query": "hi",
+        "intent_tag": "greeting",
+        "timestamp": "2025-10-08T16:39:58.603531"
+    },
+    {
+        "user": "user1",
+        "query": "what is my balance",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T16:40:07.568371"
+    },
+    {
+        "user": "user1",
+        "query": "my account no is 458293746",
+        "intent_tag": "fallback",
+        "timestamp": "2025-10-08T16:40:21.011701"
+    },
+    {
+        "user": "user1",
+        "query": "hi",
+        "intent_tag": "greeting",
+        "timestamp": "2025-10-08T16:42:44.565140"
+    },
+    {
+        "user": "user1",
+        "query": "Check Balance",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T16:42:48.213489"
+    },
+    {
+        "user": "user1",
+        "query": "458293746",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T16:42:57.214094"
+    },
+    {
+        "user": "user1",
+        "query": "transactions",
+        "intent_tag": "recent_transactions",
+        "timestamp": "2025-10-08T16:43:06.839099"
+    },
+    {
+        "user": "user1",
+        "query": "loan",
+        "intent_tag": "loan",
+        "timestamp": "2025-10-08T16:43:14.190668"
+    },
+    {
+        "user": "user1",
+        "query": "personal loan",
+        "intent_tag": "fallback",
+        "timestamp": "2025-10-08T16:43:23.326643"
+    },
+    {
+        "user": "user1",
+        "query": "card",
+        "intent_tag": "card_services",
+        "timestamp": "2025-10-08T16:43:44.174069"
+    },
+    {
+        "user": "user1",
+        "query": "credit card",
+        "intent_tag": "card_services",
+        "timestamp": "2025-10-08T16:43:49.134722"
+    },
+    {
+        "user": "user1",
+        "query": "hi",
+        "intent_tag": "greeting",
+        "timestamp": "2025-10-08T16:52:32.636363"
+    },
+    {
+        "user": "user1",
+        "query": "what is my balance",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T16:52:41.904073"
+    },
+    {
+        "user": "user1",
+        "query": "458293746",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T16:52:49.944744"
+    },
+    {
+        "user": "user1",
+        "query": "recent transactions",
+        "intent_tag": "recent_transactions",
+        "timestamp": "2025-10-08T16:53:04.973665"
+    },
+    {
+        "user": "user1",
+        "query": "loan",
+        "intent_tag": "loan",
+        "timestamp": "2025-10-08T16:53:08.673285"
+    },
+    {
+        "user": "user1",
+        "query": "personal loan",
+        "intent_tag": "fallback",
+        "timestamp": "2025-10-08T16:53:13.941149"
+    },
+    {
+        "user": "user1",
+        "query": "Personal loan",
+        "intent_tag": "fallback",
+        "timestamp": "2025-10-08T16:53:22.873991"
+    },
+    {
+        "user": "user1",
+        "query": "card",
+        "intent_tag": "card_services",
+        "timestamp": "2025-10-08T16:53:27.496209"
+    },
+    {
+        "user": "user1",
+        "query": "credit card",
+        "intent_tag": "card_services",
+        "timestamp": "2025-10-08T16:53:32.517973"
+    },
+    {
+        "user": "user1",
+        "query": "I want to open a new account",
+        "intent_tag": "fallback",
+        "timestamp": "2025-10-08T16:56:56.708762"
+    },
+    {
+        "user": "user1",
+        "query": "hi",
+        "intent_tag": "greeting",
+        "timestamp": "2025-10-08T17:05:01.992404"
+    },
+    {
+        "user": "user1",
+        "query": "Check Balance",
+        "intent_tag": "check_balance",
+        "timestamp": "2025-10-08T17:05:06.327020"
+    },
+    {
+        "user": "user1",
+        "query": "Transactions",
+        "intent_tag": "recent_transactions",
+        "timestamp": "2025-10-08T17:05:10.486995"
+    },
+    {
+        "user": "user1",
+        "query": "loan",
+        "intent_tag": "loan",
+        "timestamp": "2025-10-08T17:05:16.844782"
+    },
+    {
+        "user": "user1",
+        "query": "card",
+        "intent_tag": "card_services",
+        "timestamp": "2025-10-08T17:05:26.682634"
+    },
+    {
+        "user": "user1",
+        "query": "credit card",
+        "intent_tag": "card_services",
+        "timestamp": "2025-10-08T17:05:31.843292"
+    }
+]

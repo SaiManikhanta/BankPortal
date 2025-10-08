@@ -14,6 +14,8 @@
   header .logo h1 { font-size: 26px; font-weight: 700; letter-spacing: 1px; }
   header nav a { color: white; margin-left: 20px; padding-right: 20px; font-weight: 500; text-decoration: none; transition: color 0.3s; }
   header nav a:hover { color: #ffd700; }
+  header .admin-icon { color: white; font-size: 22px; margin-left: 20px; cursor: pointer; transition: color 0.3s; }
+  header .admin-icon:hover { color: #ffd700; }
 
   .main { display: flex; padding: 30px 40px; gap: 25px; }
   .left-panel { flex: 2; display: flex; flex-direction: column; gap: 20px; }
@@ -55,11 +57,20 @@
     <img src="{{ url_for('static', filename='images/logo.png') }}" alt="SkyBank Logo">
     <h1>SkyBank</h1>
   </div>
+
   <nav>
     <a href="/">Home</a>
     <a href="/services">Services</a>
     <a href="/contact">Contact</a>
     <a href="/about">About</a>
+    
+    {% if is_admin %}
+    <a href="{{ url_for('admin') }}" title="Admin Panel">
+      <i class="fa-solid fa-user-gear admin-icon"></i>
+    </a>
+    {% endif %}
+
+    <a href="/logout"><i class="fa-solid fa-right-from-bracket admin-icon" title="Logout"></i></a>
   </nav>
 </header>
 
@@ -100,7 +111,6 @@
     </div>
   </div>
 
-  <!-- Chatbot -->
   <div class="chat-container">
     <div class="chat-header">
       <img src="{{ url_for('static', filename='images/bank_bot.jpg') }}" alt="BankBot" class="bot-avatar">
@@ -130,15 +140,15 @@ function showResult(option) {
     let resultDiv = document.getElementById('result');
     resultDiv.style.display = "block";
 
-    if(option === 'balance') resultDiv.innerHTML = `<b>Current Balance:</b> ₹{{ account.balance }}`;
+    if(option === 'balance') resultDiv.innerHTML = '<b>Current Balance:</b> ₹{{ account.balance }}';
     else if(option === 'transactions') {
         if(transactions.length === 0) { resultDiv.innerHTML = "No transactions found."; return; }
         let txnHtml = transactions.map(txn => `${txn.date} | ${txn.type} | ₹${txn.amount}`).join("<br>");
         resultDiv.innerHTML = "<b>Last Transactions:</b><br>" + txnHtml;
     }
-    else if(option === 'loans') resultDiv.innerHTML = `<b>Active Loan:</b> ₹{{ account.loan }}`;
-    else if(option === 'debit') resultDiv.innerHTML = `<b>Daily Debit Limit:</b> ₹{{ account.debit_limit }}`;
-    else if(option === 'credit') resultDiv.innerHTML = `<b>Credit Limit:</b> ₹{{ account.credit_limit }}`;
+    else if(option === 'loans') resultDiv.innerHTML = '<b>Active Loan:</b> ₹{{ account.loan }}';
+    else if(option === 'debit') resultDiv.innerHTML = '<b>Daily Debit Limit:</b> ₹{{ account.debit_limit }}';
+    else if(option === 'credit') resultDiv.innerHTML = '<b>Credit Limit:</b> ₹{{ account.credit_limit }}';
 }
 
 function sendMessage() {
@@ -154,6 +164,8 @@ function sendMessage() {
     chatBox.scrollTop = chatBox.scrollHeight;
     inputBox.value = "";
 
+    // NOTE: In a real application, the fetch request would go to a backend endpoint (e.g., /chatbot)
+    // which handles the chatbot logic and returns a JSON response with the bot's reply.
     fetch("/chatbot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -163,11 +175,18 @@ function sendMessage() {
     .then(data => {
         const botMsgDiv = document.createElement('div');
         botMsgDiv.className = "bot-message";
-        botMsgDiv.innerHTML = `<span>🤖 ${data.reply}</span>`;
+        botMsgDiv.innerHTML = `<span>🤖 ${data.reply}</span>`; // Assuming data.reply holds the bot's response
         chatBox.appendChild(botMsgDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
     })
-    .catch(err => console.error(err));
+    .catch(err => {
+        // Fallback for demonstration without a running backend
+        const botMsgDiv = document.createElement('div');
+        botMsgDiv.className = "bot-message";
+        botMsgDiv.innerHTML = `<span>🤖 I'm sorry, my connection is down. (Error: ${err.message})</span>`;
+        chatBox.appendChild(botMsgDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
 }
 
 document.getElementById('user-input').addEventListener('keypress', function(e) {

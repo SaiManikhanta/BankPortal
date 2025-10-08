@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { background-color: #f8faff; font-family: 'Segoe UI', sans-serif; }
+        .sidebar { background-color: #0d6efd; min-height: 100vh; color: white; padding-top: 20px; }
+        .sidebar a { color: white; text-decoration: none; display: flex; align-items: center; padding: 10px 20px; margin: 5px 0; cursor: pointer; }
+        .sidebar a:hover, .sidebar a.active { background-color: rgba(255,255,255,0.2); border-radius: 6px; }
+        .sidebar a i { margin-right: 8px; }
+        .dashboard-content { padding: 30px; }
+        .stat-card { background: white; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); padding: 20px; text-align: center; }
+        .stat-value { font-size: 24px; font-weight: bold; }
+        .table td, .table th { vertical-align: middle; }
+        .card form { text-align: left; }
+        .btn-primary { background-color: #0d6efd; border: none; }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar">
+            <h4 class="text-center mb-4">Admin Panel</h4>
+            <a class="active" data-target="dashboardSection"><i class="bi bi-speedometer2"></i>Dashboard</a>
+            <a data-target="trainingSection"><i class="bi bi-journal-text"></i>Training Data</a>
+            <a data-target="queriesSection"><i class="bi bi-people"></i>User Queries</a>
+            <a data-target="faqSection"><i class="bi bi-question-circle"></i>FAQs</a>
+            <a data-target="analyticsSection"><i class="bi bi-bar-chart-line"></i>Analytics</a>
+            <a data-target="settingsSection"><i class="bi bi-gear"></i>Settings</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-10 dashboard-content" id="contentArea">
+
+            <!-- Dashboard Section -->
+            <div id="dashboardSection">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>Query Analytics</h3>
+                    <div>
+                        <button id="refreshBtn" class="btn btn-outline-primary btn-sm">Refresh</button>
+                        <button id="exportBtn" class="btn btn-outline-success btn-sm">Export CSV</button>
+                    </div>
+                </div>
+
+                <div class="row mb-4" id="statsRow">
+                    <div class="col-md-3"><div class="stat-card"><div class="stat-value" id="totalQueries">0</div><div>Total Queries</div></div></div>
+                    <div class="col-md-3"><div class="stat-card"><div class="stat-value" id="successRate">0%</div><div>Success Rate</div></div></div>
+                    <div class="col-md-3"><div class="stat-card"><div class="stat-value" id="intentCount">0</div><div>Intents</div></div></div>
+                    <div class="col-md-3"><div class="stat-card"><div class="stat-value" id="entityCount">0</div><div>Entity Types</div></div></div>
+                </div>
+
+                <h4 class="mb-3">Recent Queries</h4>
+                <table class="table table-hover mb-5">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Query</th>
+                            <th>Intent</th>
+                            <th>Confidence</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentQueriesBody"></tbody>
+                </table>
+            </div>
+
+            <!-- Training Data Section -->
+            <div id="trainingSection" style="display:none;">
+                <div class="card p-4 shadow-sm">
+                    <h4 class="mb-3">Add New Training Query</h4>
+                    <form id="intentForm">
+                        <div class="mb-3">
+                            <label class="form-label">Intent Name:</label>
+                            <input type="text" class="form-control" name="intent" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Patterns (User Inputs):</label>
+                            <textarea name="patterns" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Responses (Bot Replies):</label>
+                            <textarea name="responses" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add and Train</button>
+                    </form>
+                    <p id="msg" class="mt-3 text-success"></p>
+                </div>
+            </div>
+
+            <!-- User Queries Section -->
+            <div id="queriesSection" style="display:none;">
+                <h4 class="mb-3">User Queries</h4>
+                <div id="userQueriesContent">Loading...</div>
+            </div>
+
+            <!-- FAQs Section -->
+            <div id="faqSection" style="display:none;">
+                <h4 class="mb-3">Manage FAQs</h4>
+                <div id="faqContent">Loading...</div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div id="analyticsSection" style="display:none;">
+                <h4 class="mb-3">Analytics</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <canvas id="monthlyQueriesChart"></canvas>
+                    </div>
+                    <div class="col-md-6">
+                        <canvas id="topIntentsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settingsSection" style="display:none;">
+                <h4 class="mb-3">Settings</h4>
+                <div class="card p-3 shadow-sm">
+                    <form id="settingsForm">
+                        <div class="mb-3">
+                            <label class="form-label">Confidence Threshold 
+                                <i class="bi bi-info-circle" title="Minimum confidence score required for the bot to respond. Queries below this threshold will trigger fallback."></i>
+                            </label>
+                            <input type="number" step="0.01" min="0" max="1" class="form-control" id="confidenceThreshold" name="confidence_threshold" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Max Response Length 
+                                <i class="bi bi-info-circle" title="Maximum number of characters the bot can use in a single reply."></i>
+                            </label>
+                            <input type="number" class="form-control" id="maxResponseLength" name="max_response_length" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                        <p id="settingsMsg" class="mt-2 text-success"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Sidebar click handling
+document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', async (e) => {
+        e.preventDefault();
+        document.querySelectorAll('.sidebar a').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        const target = link.dataset.target;
+        document.querySelectorAll('#contentArea > div').forEach(div => div.style.display = 'none');
+        document.getElementById(target).style.display = 'block';
+
+        if (target === 'dashboardSection') fetchDashboardData();
+        else if (target === 'queriesSection') fetchUserQueries();
+        else if (target === 'faqSection') fetchFAQs();
+        else if (target === 'analyticsSection') fetchAnalytics();
+        else if (target === 'settingsSection') loadSettings();
+    });
+});
+
+// Dashboard Data
+async function fetchDashboardData() {
+    try {
+        const res = await fetch('/admin/dashboard_data');
+        const data = await res.json();
+        document.getElementById('totalQueries').textContent = data.total_queries;
+        document.getElementById('successRate').textContent = data.success_rate + '%';
+        document.getElementById('intentCount').textContent = data.intent_count;
+        document.getElementById('entityCount').textContent = data.entity_count;
+        const tbody = document.getElementById('recentQueriesBody');
+        tbody.innerHTML = '';
+        data.recent_queries.forEach(q => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${q.query}</td><td>${q.intent}</td><td>${q.confidence}%</td><td>${q.date}</td>`;
+            tbody.appendChild(row);
+        });
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+// Add intent
+document.getElementById('intentForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    formData.set('patterns', formData.get('patterns').split('\n'));
+    formData.set('responses', formData.get('responses').split('\n'));
+    const res = await fetch('/add_intent', { method: 'POST', body: formData });
+    const data = await res.json();
+    document.getElementById('msg').textContent = data.message || data.error;
+    if (data.success) e.target.reset();
+});
+
+// User Queries
+async function fetchUserQueries() {
+    const container = document.getElementById('userQueriesContent');
+    container.innerHTML = 'Loading...';
+    try {
+        const res = await fetch('/admin/user_queries');
+        const data = await res.json();
+        container.innerHTML = data.queries && data.queries.length ?
+            '<ul class="list-group">' + data.queries.map(q =>
+                `<li class="list-group-item"><strong>${q.user}</strong>: ${q.query} <span class="text-muted">(${q.date})</span></li>`
+            ).join('') + '</ul>' : 'No queries found.';
+    } catch {
+        container.innerHTML = 'Error loading user queries.';
+    }
+}
+
+// FAQs
+async function fetchFAQs() {
+    const container = document.getElementById('faqContent');
+    container.innerHTML = 'Loading...';
+    try {
+        const res = await fetch('/admin/faqs');
+        const data = await res.json();
+        container.innerHTML = data.faqs && data.faqs.length ?
+            '<ul class="list-group">' + data.faqs.map(f =>
+                `<li class="list-group-item"><strong>Q:</strong> ${f.question}<br><strong>A:</strong> ${f.answer}</li>`
+            ).join('') + '</ul>' : 'No FAQs found.';
+    } catch {
+        container.innerHTML = 'Error loading FAQs.';
+    }
+}
+
+// Analytics Charts
+let monthlyQueriesChart, topIntentsChart;
+async function fetchAnalytics() {
+    try {
+        const res = await fetch('/admin/analytics_data');
+        const data = await res.json();
+
+        const ctx1 = document.getElementById('monthlyQueriesChart').getContext('2d');
+        if(monthlyQueriesChart) monthlyQueriesChart.destroy();
+        monthlyQueriesChart = new Chart(ctx1, {
+            type: 'bar',
+            data: { labels: data.query_labels, datasets: [{ label: 'Monthly Queries', data: data.monthly_queries, backgroundColor: 'rgba(13, 110, 253, 0.7)' }] },
+            options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+
+        const ctx2 = document.getElementById('topIntentsChart').getContext('2d');
+        if(topIntentsChart) topIntentsChart.destroy();
+        topIntentsChart = new Chart(ctx2, {
+            type: 'pie',
+            data: { labels: data.top_intents.map(t => t.intent), datasets: [{ data: data.top_intents.map(t => t.count), backgroundColor: ['#0d6efd','#198754','#dc3545','#ffc107','#6c757d'] }] },
+            options: { responsive: true }
+        });
+
+    } catch (err) {
+        console.error(err);
+        document.getElementById('analyticsSection').innerHTML = '<div class="alert alert-danger">Error loading analytics.</div>';
+    }
+}
+
+// Settings
+async function loadSettings() {
+    try {
+        const res = await fetch('/admin/settings');
+        const data = await res.json();
+        document.getElementById('confidenceThreshold').value = data.confidence_threshold;
+        document.getElementById('maxResponseLength').value = data.max_response_length || 500;
+    } catch { console.error('Failed to load settings'); }
+}
+
+document.getElementById('settingsForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    try {
+        const res = await fetch('/admin/settings', { method: 'POST', body: formData });
+        const data = await res.json();
+        document.getElementById('settingsMsg').textContent = data.message || 'Saved successfully!';
+    } catch {
+        document.getElementById('settingsMsg').textContent = 'Error saving settings.';
+    }
+});
+
+// Buttons
+document.getElementById('refreshBtn').addEventListener('click', fetchDashboardData);
+document.getElementById('exportBtn').addEventListener('click', () => window.location.href = '/admin/export_csv');
+
+// Initial Load
+fetchDashboardData();
+</script>
+</body>
+</html>
